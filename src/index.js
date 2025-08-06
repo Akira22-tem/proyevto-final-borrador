@@ -8,11 +8,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <div className="container-fluid">
-      <App />
-    </div>
-  </React.StrictMode>
+  <div className="container-fluid">
+    <App />
+  </div>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,7 +1,7 @@
 import React from 'react';
 
 function ExportarContactos({ contactos, modoOscuro }) {
-  // Exportar a CSV
+  // exportar a csv - version completamente segura
   const exportarCSV = () => {
     const headers = [
       'Nombre',
@@ -23,21 +23,25 @@ function ExportarContactos({ contactos, modoOscuro }) {
       ),
     ].join('\n');
 
+    // usar la api moderna de descargas
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute(
-      'download',
-      `agenda_guerreros_${new Date().toISOString().split('T')[0]}.csv`
-    );
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
+
+    // crear y usar link sin agregarlo al dom
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `agenda_guerreros_${
+      new Date().toISOString().split('T')[0]
+    }.csv`;
+
+    // hacer clic sin agregar al dom
     link.click();
-    document.body.removeChild(link);
+
+    // limpiar url inmediatamente
+    URL.revokeObjectURL(url);
   };
 
-  // Exportar a JSON (alternativa a PDF por simplicidad)
+  // exportar a json - version completamente segura
   const exportarJSON = () => {
     const datosExportar = {
       agenda_guerreros: contactos,
@@ -47,21 +51,26 @@ function ExportarContactos({ contactos, modoOscuro }) {
     };
 
     const jsonContent = JSON.stringify(datosExportar, null, 2);
+
+    // usar la api moderna de descargas
     const blob = new Blob([jsonContent], { type: 'application/json' });
-    const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute(
-      'download',
-      `agenda_guerreros_${new Date().toISOString().split('T')[0]}.json`
-    );
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
+
+    // crear y usar link sin agregarlo al dom
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `agenda_guerreros_${
+      new Date().toISOString().split('T')[0]
+    }.json`;
+
+    // hacer clic sin agregar al dom
     link.click();
-    document.body.removeChild(link);
+
+    // limpiar url inmediatamente
+    URL.revokeObjectURL(url);
   };
 
-  // Estilos temática guerrera
+  // estilos tematica guerrera
   const estilosGuerreros = {
     contenedorExportar: {
       background: modoOscuro
