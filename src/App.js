@@ -52,7 +52,7 @@ function App() {
     }
   }, [modoOscuro]);
 
-  // FUNCIONALIDAD 1: Agregar nuevo contacto
+  // FUNc 1: Agregar nuevo contacto
   const agregarContacto = (nuevoContacto) => {
     const contactoCompleto = {
       ...nuevoContacto,
@@ -63,7 +63,7 @@ function App() {
     setMostrarFormulario(false);
   };
 
-  // FUNCIONALIDAD 3: Editar contacto existente
+  // FUNc 3: Editar contacto existente
   const editarContacto = (contactoActualizado) => {
     const contactosActualizados = contactos.map((contacto) =>
       contacto.id === contactoActualizado.id
@@ -75,7 +75,7 @@ function App() {
     setMostrarFormulario(false);
   };
 
-  // FUNCIONALIDAD 4: Eliminar contacto
+  // FUNc 4: Eliminar contacto
   const iniciarEliminacion = (contacto) => {
     setContactoAEliminar(contacto);
     setMostrarModalEliminacion(true);
@@ -108,14 +108,14 @@ function App() {
     setContactoEditando(null);
   };
 
-  // FUNCIONALIDAD 5: Filtrar contactos por búsqueda
+  // FUNc 5: Filtrar contactos por búsqueda
   const contactosFiltradosBusqueda = contactos.filter(
     (contacto) =>
       contacto.nombre.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
       contacto.email.toLowerCase().includes(terminoBusqueda.toLowerCase())
   );
 
-  // FUNCIONALIDAD 6: Aplicar filtros y ordenación
+  // FUNc 6: Aplicar filtros y ordenación
   const contactosFinales = contactosFiltradosBusqueda
     .filter(
       (contacto) =>
@@ -137,7 +137,7 @@ function App() {
     ),
   ].sort();
 
-  // FUNCIONALIDAD 7: Alternar modo oscuro
+  // FUNc 7: Alternar modo oscuro
   const alternarModoOscuro = () => {
     setModoOscuro(!modoOscuro);
   };
@@ -152,7 +152,6 @@ function App() {
         minHeight: '100vh',
       }}
     >
-      {/* Llamamos al componente de navegación - FUNCIONALIDAD 7 */}
       <BarraNavegacion
         modoOscuro={modoOscuro}
         alternarModoOscuro={alternarModoOscuro}
@@ -160,7 +159,6 @@ function App() {
       />
 
       <div className="container py-4">
-        {/* Llamamos al componente de formulario - FUNCIONALIDAD 1 */}
         {mostrarFormulario && (
           <FormularioContacto
             contactoEditando={contactoEditando}
@@ -172,14 +170,12 @@ function App() {
           />
         )}
 
-        {/* Llamamos al componente de búsqueda - FUNCIONALIDAD 5 */}
         <BusquedaContactos
           terminoBusqueda={terminoBusqueda}
           onCambiarBusqueda={setTerminoBusqueda}
           modoOscuro={modoOscuro}
         />
 
-        {/* Llamamos al componente de filtros - FUNCIONALIDAD 6 */}
         <FiltrosOrdenacion
           ordenAscendente={ordenAscendente}
           onCambiarOrden={setOrdenAscendente}
@@ -190,12 +186,10 @@ function App() {
           modoOscuro={modoOscuro}
         />
 
-        {/* EXTRA: Componente de exportación */}
         {contactos.length > 0 && (
           <ExportarContactos contactos={contactos} modoOscuro={modoOscuro} />
         )}
 
-        {/* Llamamos al componente de lista - FUNCIONALIDAD 2 */}
         <ListaContactos
           contactos={contactosFinales}
           totalContactosOriginales={contactos.length}
@@ -205,7 +199,6 @@ function App() {
         />
       </div>
 
-      {/* Llamamos al componente de modal - FUNCIONALIDAD 4 */}
       <ModalEliminacion
         mostrar={mostrarModalEliminacion}
         contacto={contactoAEliminar}
